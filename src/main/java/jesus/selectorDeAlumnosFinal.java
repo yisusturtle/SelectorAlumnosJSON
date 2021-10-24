@@ -30,11 +30,11 @@ public class selectorDeAlumnosFinal {
             
             //Incializo un random
             Random random = new Random();
-            int numeroAleatorio = random.nextInt(jArray4.length()); //Numero aleatorio segun el numero de elementos del array
             
-            JSONArray alumnoAleatorio = jArray4.getJSONArray(numeroAleatorio); //alumnoAleatorio.get(1) para obtener el nombre
             
-            int menuSacarAlguien = JOptionPane.showConfirmDialog(null,"¿Quieres sacar a alguien?","Elige una opcion...",JOptionPane.YES_NO_OPTION);
+            
+            
+            int menuSacarAlguien = JOptionPane.showConfirmDialog(null,"Bienvenido a programacion, ¿Quieres sacar a alguien?","Elige una opcion...",JOptionPane.YES_NO_OPTION);
             
             boolean archivoAlumnos = true;
             
@@ -60,14 +60,49 @@ public class selectorDeAlumnosFinal {
                                     FileWriter archivoEscribir = new FileWriter(nombreArchivo);
                                     BufferedWriter bufferArchivo = new BufferedWriter(archivoEscribir);
                                     JOptionPane.showMessageDialog(null, "Se ha creado el archivo 'AlumnosProgramacion1DAW.csv'");
+                                    
+                                    //Una vez creado pasamos la lista de alumnos al archivo
+                                    StringBuilder formatoCSV = new StringBuilder();
+                                    formatoCSV.append("Nombre");
+                                    formatoCSV.append(",");
+                                    formatoCSV.append("Positivos");
+                                    formatoCSV.append("\n");
+                                    for(int z=0; z < jArray4.length(); z++){
+                                        JSONArray listaAlumno = jArray4.getJSONArray(z);
+                                        String alumnoListaOrdenada = String.valueOf(listaAlumno.get(1));
+                                        formatoCSV.append(alumnoListaOrdenada);
+                                        formatoCSV.append(",");
+                                        formatoCSV.append("0");
+                                        formatoCSV.append("\n");
+                                    }
+                                    bufferArchivo.write(formatoCSV.toString());
+                                    bufferArchivo.close();
+                                    JOptionPane.showMessageDialog(null, "Se han introducido los alumnos");
 
                                 }catch(IOException e){
                                     archivoAlumnos = true;
                                 }
                             }
                             
+                    //Logica del programa
+                    //Hacer random para sacar alguien y poner positivo o negativo +1 o -1
+                    int comprobarDeberes;
+                                      
+                    do{
+                        int numeroAleatorio = random.nextInt(jArray4.length()); //Numero aleatorio segun el numero de elementos del array
+                        JSONArray alumnoAleatorio = jArray4.getJSONArray(numeroAleatorio); //alumnoAleatorio.get(1) para obtener el nombre
+                        comprobarDeberes = JOptionPane.showConfirmDialog(null, alumnoAleatorio.get(1), "¿Ha hecho los deberes?...",JOptionPane.YES_NO_CANCEL_OPTION);
+                    }while(comprobarDeberes!=2);
+                            
                     } else{
                         //Hacer el programa sin almacenar los datos
+                        int comprobarDeberes;
+                                      
+                        do{
+                            int numeroAleatorio = random.nextInt(jArray4.length()); //Numero aleatorio segun el numero de elementos del array
+                            JSONArray alumnoAleatorio = jArray4.getJSONArray(numeroAleatorio); //alumnoAleatorio.get(1) para obtener el nombre
+                            comprobarDeberes = JOptionPane.showConfirmDialog(null, alumnoAleatorio.get(1), "¿Ha hecho los deberes?...",JOptionPane.YES_NO_CANCEL_OPTION);
+                        }while(comprobarDeberes!=2);
                     }
                     
             } else{
